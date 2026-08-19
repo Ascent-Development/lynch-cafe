@@ -11,6 +11,10 @@ export default function CartaPreview() {
   const [slideWidth, setSlideWidth] = useState(240);
   const [isHovered, setIsHovered] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  // How many times baseProducts is repeated in the track. Wide screens can fit more visible
+  // cards than a fixed triple-repeat can safely buffer, which used to leave a blank gap at the
+  // end of the loop — this is recalculated from the actual viewport width (see updateDimensions).
+  const [numCopies, setNumCopies] = useState(7);
 
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,9 +52,12 @@ export default function CartaPreview() {
     },
   ];
 
-  // Tripled array to support seamless infinite wrapping
-  const products = [...baseProducts, ...baseProducts, ...baseProducts];
-  const [currentIndex, setCurrentIndex] = useState(baseProducts.length); // start in middle block (index 5)
+  // Repeated array to support seamless infinite wrapping. numCopies is sized to the viewport
+  // (see updateDimensions) so there are always enough cards buffered ahead of the current one.
+  const products: typeof baseProducts = [];
+  for (let i = 0; i < numCopies; i++) products.push(...baseProducts);
+  const mid = Math.floor(numCopies / 2) * baseProducts.length;
+  const [currentIndex, setCurrentIndex] = useState(mid); // start in the middle block
 
   // Scroll entrance animation
   useEffect(() => {
@@ -89,7 +96,16 @@ export default function CartaPreview() {
     }
 
     const calculatedSlideWidth = (width - gap * (Math.floor(visibleCards) - 1)) / visibleCards;
-    setSlideWidth(Math.min(260, Math.max(180, calculatedSlideWidth)));
+    const newSlideWidth = Math.min(260, Math.max(180, calculatedSlideWidth));
+    setSlideWidth(newSlideWidth);
+
+    // Cards that actually fit on screen at this slide width can exceed the "visibleCards"
+    // target above once it hits the 180-260px clamp (e.g. on very wide viewports). Size the
+    // number of repeated blocks so there's always a full extra block of lookahead available.
+    const actualVisibleCount = Math.ceil(width / (newSlideWidth + gap)) + 1;
+    const baseLen = baseProducts.length;
+    const neededCopies = 2 * Math.ceil((actualVisibleCount + baseLen - 1) / baseLen) + 1;
+    setNumCopies(Math.max(5, neededCopies));
   }, []);
 
   useEffect(() => {
@@ -98,16 +114,28 @@ export default function CartaPreview() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, [updateDimensions]);
 
-  // Seamless infinite loop normalization on transition end
+  // Seamless infinite loop normalization on transition end: always snap back to the middle
+  // block. Shifting by a multiple of baseProducts.length is visually invisible (same dish),
+  // and doing it after every step keeps currentIndex permanently within a safe, buffered range.
   const handleTransitionEnd = () => {
-    if (currentIndex >= baseProducts.length * 2) {
+    const baseLen = baseProducts.length;
+    const recentered = mid + (((currentIndex % baseLen) + baseLen) % baseLen);
+    if (recentered !== currentIndex) {
       setIsTransitioning(false);
-      setCurrentIndex(currentIndex - baseProducts.length);
-    } else if (currentIndex < baseProducts.length) {
-      setIsTransitioning(false);
-      setCurrentIndex(currentIndex + baseProducts.length);
+      setCurrentIndex(recentered);
     }
   };
+
+  // Keep the same dish visible (only the block index changes) when the viewport is resized
+  // and numCopies/mid shifts as a result.
+  useEffect(() => {
+    setIsTransitioning(false);
+    setCurrentIndex((prev) => {
+      const baseLen = baseProducts.length;
+      return mid + (((prev % baseLen) + baseLen) % baseLen);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [numCopies]);
 
   // Re-enable smooth transition after instant reset
   useEffect(() => {
@@ -284,7 +312,7 @@ export default function CartaPreview() {
                 type="button"
                 onClick={() => {
                   setIsTransitioning(true);
-                  setCurrentIndex(baseProducts.length + idx);
+                  setCurrentIndex(mid + idx);
                 }}
                 aria-label={`Ir al producto ${idx + 1}`}
                 className={`h-1 rounded-full transition-all duration-400 cursor-pointer ${
