@@ -60,6 +60,7 @@ export default function DishQuickViewModal({
         {/* Dish Image Placeholder / Photo */}
         <div className="relative w-full h-56 sm:h-64 bg-[#F2EFE8]">
           <ImagePlaceholder
+            key={item.id}
             src={item.imageSlot}
             alt={item.name}
             recommendedSize="800x600px"

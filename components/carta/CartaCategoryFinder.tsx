@@ -1,16 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { FEATURED_CATEGORIES } from "@/lib/cartaHelpers";
 import ImagePlaceholder from "./ImagePlaceholder";
-
-interface CategoryItem {
-  id: string;
-  name: string;
-  macroId: string;
-  subcategoryId: string;
-  imagePath: string;
-  bgColor: string;
-}
 
 interface CartaCategoryFinderProps {
   onSelectCategory: (macroId: string, subcategoryId?: string) => void;
@@ -22,56 +14,9 @@ export default function CartaCategoryFinder({
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const categories: CategoryItem[] = [
-    {
-      id: "cat-desayunos",
-      name: "DESAYUNOS & TOSTAS",
-      macroId: "desayunos",
-      subcategoryId: "desayunos-completos",
-      imagePath: "/images/carta/categorias/desayunos-tostas.jpg",
-      bgColor: "#EAD6C3",
-    },
-    {
-      id: "cat-sandwiches",
-      name: "SÁNDWICHES & PIQUEOS",
-      macroId: "salados",
-      subcategoryId: "sandwiches",
-      imagePath: "/images/carta/categorias/sandwiches-piqueos.jpg",
-      bgColor: "#E2E7D3",
-    },
-    {
-      id: "cat-criollitos",
-      name: "CRIOLLITOS & FONDOS",
-      macroId: "salados",
-      subcategoryId: "platos-criollitos",
-      imagePath: "/images/carta/categorias/criollitos-fondos.jpg",
-      bgColor: "#F3D0C2",
-    },
-    {
-      id: "cat-pastas",
-      name: "PASTAS & PIZZAS",
-      macroId: "salados",
-      subcategoryId: "pastas",
-      imagePath: "/images/carta/categorias/pastas-pizzas.jpg",
-      bgColor: "#EAD6C3",
-    },
-    {
-      id: "cat-postres",
-      name: "POSTRES & GELATO",
-      macroId: "postres",
-      subcategoryId: "postres-especiales",
-      imagePath: "/images/carta/categorias/postres-gelato.jpg",
-      bgColor: "#E2E7D3",
-    },
-    {
-      id: "cat-cafes",
-      name: "CAFÉS & BEBIDAS",
-      macroId: "bebidas",
-      subcategoryId: "metodos-artesanales",
-      imagePath: "/images/carta/categorias/cafes-bebidas.jpg",
-      bgColor: "#F3D0C2",
-    },
-  ];
+  // Reuse the canonical featured categories (with real, existing photo paths)
+  // instead of a duplicate local list, so this slider never drifts out of sync.
+  const categories = FEATURED_CATEGORIES;
 
   const maxIndex = Math.max(0, categories.length - 4);
 
@@ -150,7 +95,7 @@ export default function CartaCategoryFinder({
                   className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden p-0 flex items-center justify-center shadow-xs transition-all duration-300 group-hover:shadow-lg"
                 >
                   <ImagePlaceholder
-                    src={cat.imagePath}
+                    src={cat.image}
                     alt={cat.name}
                     recommendedSize="800x600px"
                     aspectRatio="4:3"

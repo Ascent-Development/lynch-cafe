@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getRecommendedTabs, FlatDish, RecommendedTab } from "@/lib/cartaHelpers";
 import ImagePlaceholder from "./ImagePlaceholder";
@@ -12,7 +12,7 @@ interface CartaRecommendedTabsProps {
 export default function CartaRecommendedTabs({
   onItemClick,
 }: CartaRecommendedTabsProps) {
-  const tabs: RecommendedTab[] = getRecommendedTabs();
+  const tabs: RecommendedTab[] = useMemo(() => getRecommendedTabs(), []);
   const [activeTabId, setActiveTabId] = useState<string>(tabs[0]?.id || "favoritos");
 
   const currentTab = tabs.find((t) => t.id === activeTabId) || tabs[0];

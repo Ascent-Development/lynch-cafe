@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CARTA_DATA, MacroSection } from "@/lib/cartaData";
 import { getAllDishes, FlatDish } from "@/lib/cartaHelpers";
@@ -35,6 +35,16 @@ export default function CartaCatalogView({
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState<number>(PAGE_SIZE);
 
+  // Reset pagination when filters change. Adjusting state during render (rather than in an
+  // effect) avoids an extra render pass — this is React's documented pattern for resetting
+  // state when a set of dependencies changes: https://react.dev/learn/you-might-not-need-an-effect
+  const filterKey = [selectedMacro, selectedSubcategoryId, selectedTag, searchQuery, maxPrice, sortBy].join("|");
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setVisibleCount(PAGE_SIZE);
+  }
+
   // Available tags
   const filterTags = [
     "Todos",
@@ -54,11 +64,6 @@ export default function CartaCatalogView({
     CARTA_DATA.postres,
     CARTA_DATA.bebidas,
   ].filter(Boolean) as MacroSection[];
-
-  // Reset pagination when filters change
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [selectedMacro, selectedSubcategoryId, selectedTag, searchQuery, maxPrice, sortBy]);
 
   // Filtered & Sorted dishes
   const filteredDishes = useMemo(() => {
@@ -512,7 +517,7 @@ export default function CartaCatalogView({
                 <label className="text-[#2A282A]/60 font-semibold hidden sm:inline">Ordenar:</label>
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
+                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
                   className="bg-[#FAF7F2] border border-[#2A282A]/15 rounded-xl px-2.5 py-1.5 text-[12px] font-bold text-[#2A282A] focus:outline-none focus:border-[#BC1C19] cursor-pointer"
                 >
                   <option value="default">Recomendados</option>

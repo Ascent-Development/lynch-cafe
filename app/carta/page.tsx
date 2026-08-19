@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CartaHeroCard from "@/components/carta/CartaHeroCard";
 import CartaCategoryFinder from "@/components/carta/CartaCategoryFinder";
 import CartaRecommendedTabs from "@/components/carta/CartaRecommendedTabs";
 import CartaPromoDuoBanners from "@/components/carta/CartaPromoDuoBanners";
@@ -80,7 +81,10 @@ export default function CartaPage() {
         {/* ── MODE 1: HUB PRINCIPAL (Imágenes 1, 2, 3 y 4) ── */}
         {viewMode === "hub" && (
           <div className="animate-fadeIn">
-            
+
+            {/* Hero promo banner: "¿Día intenso? Date un gusto" + CTA to full catalog */}
+            <CartaHeroCard onExploreClick={handleExploreAll} />
+
             {/* A. "¿Qué estás buscando hoy?" Category Finder Slider con 4 cards y flechas (Image 4) */}
             <div className="bg-white">
               <CartaCategoryFinder onSelectCategory={handleSelectCategory} />

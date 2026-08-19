@@ -5,7 +5,6 @@ export interface FlatDish extends MenuItem {
   macroName: string;
   subcategoryId: string;
   subcategoryName: string;
-  image?: string;
   tags?: string[];
   numericPrice: number;
 }
@@ -78,11 +77,13 @@ export const FEATURED_CATEGORIES: FeaturedCategory[] = [
   },
 ];
 
-// Helper to extract numeric price
+// Helper to extract numeric price. For range-style prices like "6.50 / 9.00",
+// use the highest value so price filters/sorts don't understate the item's cost.
 function parsePrice(price: number | string): number {
   if (typeof price === "number") return price;
-  const match = price.match(/[\d.]+/);
-  return match ? parseFloat(match[0]) : 0;
+  const matches = price.match(/[\d.]+/g);
+  if (!matches) return 0;
+  return Math.max(...matches.map((m) => parseFloat(m)));
 }
 
 // Generate tags based on dish name, description, badge, options
@@ -90,9 +91,9 @@ function generateTags(dish: MenuItem, macroId: string): string[] {
   const tags: string[] = [];
   const text = `${dish.name} ${dish.description || ""} ${dish.badge || ""}`.toLowerCase();
 
-  if (text.includes("sin gluten") || dish.badge?.toLowerCase().includes("sin gluten")) tags.push("Sin Gluten");
-  if (text.includes("panela") || dish.badge?.toLowerCase().includes("panela")) tags.push("Con Panela");
-  if (text.includes("compartir") || dish.badge?.toLowerCase().includes("compartir") || dish.badge?.toLowerCase().includes("2 personas")) tags.push("Para Compartir");
+  if (text.includes("sin gluten")) tags.push("Sin Gluten");
+  if (text.includes("panela")) tags.push("Con Panela");
+  if (text.includes("compartir") || text.includes("2 personas")) tags.push("Para Compartir");
   if (text.includes("fit") || text.includes("saludable") || text.includes("proteico") || text.includes("avena") || text.includes("quinua")) tags.push("Fit / Saludable");
   if (text.includes("iced") || text.includes("cold") || text.includes("frozen") || text.includes("smoothie") || text.includes("frappuccino") || text.includes("gelato")) tags.push("Iced / Frío");
   if (macroId === "bebidas" && !text.includes("iced") && !text.includes("cold") && !text.includes("frozen")) tags.push("Caliente");
