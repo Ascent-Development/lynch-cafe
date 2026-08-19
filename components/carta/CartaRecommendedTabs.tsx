@@ -29,8 +29,11 @@ export default function CartaRecommendedTabs({
           </h2>
         </div>
 
-        {/* Tabs with Smooth Animated Red Underline (layoutId) */}
-        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar">
+        {/* Tabs with Smooth Animated Red Underline (layoutId) - Scrollbar removed */}
+        <div
+          className="flex items-center gap-1 sm:gap-2 overflow-x-auto md:overflow-x-visible pb-1 no-scrollbar"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
           {tabs.map((tab) => {
             const isActive = activeTabId === tab.id;
             return (
@@ -38,7 +41,7 @@ export default function CartaRecommendedTabs({
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative px-3.5 sm:px-4 py-2 text-[12px] sm:text-[13px] font-bold transition-colors shrink-0 cursor-pointer ${
+                className={`relative px-3 sm:px-4 py-2 text-[12px] sm:text-[13px] font-bold transition-colors shrink-0 cursor-pointer ${
                   isActive ? "text-[#BC1C19]" : "text-[#2A282A]/70 hover:text-[#2A282A]"
                 }`}
               >

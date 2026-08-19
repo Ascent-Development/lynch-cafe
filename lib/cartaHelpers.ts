@@ -27,7 +27,7 @@ export const FEATURED_CATEGORIES: FeaturedCategory[] = [
     description: "Huachano, Chicharrón, Tostas y Pancakes",
     macroId: "desayunos",
     subcategoryId: "desayunos-completos",
-    image: "/carta/Cappuccino-web.png",
+    image: "/carta/categorias/desayunos-tostas.jpg",
     bgColor: "#F1EAE0",
   },
   {
@@ -36,7 +36,7 @@ export const FEATURED_CATEGORIES: FeaturedCategory[] = [
     description: "Triple Lynch, Butifarra y Alitas",
     macroId: "salados",
     subcategoryId: "sandwiches",
-    image: "/carta/hamburguesa-con-guacamole.jpg",
+    image: "/carta/categorias/sandwiches-piqueos.jpg",
     bgColor: "#EBE3D7",
   },
   {
@@ -45,7 +45,7 @@ export const FEATURED_CATEGORIES: FeaturedCategory[] = [
     description: "Lomo Saltado, Ají de Gallina y Chaufas",
     macroId: "salados",
     subcategoryId: "platos-criollitos",
-    image: "/carta/LOMO-SALTADO.jpg",
+    image: "/carta/categorias/criollitos-fondos.jpg",
     bgColor: "#E5ECE2",
   },
   {
@@ -54,7 +54,7 @@ export const FEATURED_CATEGORIES: FeaturedCategory[] = [
     description: "Ravioles, Lasagnas y Pizzas Artesanales",
     macroId: "salados",
     subcategoryId: "pastas",
-    image: "/carta/hamburguesa-con-guacamole.jpg",
+    image: "/carta/categorias/pastas-pizzas.jpg",
     bgColor: "#F4E3DD",
   },
   {
@@ -63,7 +63,7 @@ export const FEATURED_CATEGORIES: FeaturedCategory[] = [
     description: "Grand Volcán, Tiramisú y Cheesecakes",
     macroId: "postres",
     subcategoryId: "postres-especiales",
-    image: "/carta/grand-volcan.jpg",
+    image: "/carta/categorias/postres-gelato.jpg",
     bgColor: "#F6E8DA",
   },
   {
@@ -72,7 +72,7 @@ export const FEATURED_CATEGORIES: FeaturedCategory[] = [
     description: "V60, Chemex, Cold Brew y Smoothies",
     macroId: "bebidas",
     subcategoryId: "metodos-artesanales",
-    image: "/carta/frappe.jpg",
+    image: "/carta/categorias/cafes-bebidas.jpg",
     bgColor: "#E7E2DB",
   },
 ];

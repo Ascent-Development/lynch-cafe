@@ -50,6 +50,18 @@ body {
   scrollbar-color: #BC1C19 #181718;
 }
 
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
 
 .animate-intro-shape {
   animation: fadeInScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;

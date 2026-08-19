@@ -135,7 +135,7 @@ export default function Header({ heroActive = true }: HeaderProps) {
           {/* ── DESKTOP LEFT MENU ── */}
           <nav className="hidden md:flex items-center gap-4 lg:gap-7 flex-1 justify-end pr-6 lg:pr-10" aria-label="Navegación izquierda">
             {navLeft.map((link) => (
-              <div key={link.label} className="flex items-center gap-4 lg:gap-7">
+              <div key={link.label} className="flex items-center gap-2 lg:gap-3">
                 <a
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
@@ -148,13 +148,35 @@ export default function Header({ heroActive = true }: HeaderProps) {
                   }`}
                 >
                   <span>{link.label}</span>
-                  {link.hasChevron && (
-                    <svg className="w-3.5 h-3.5 -mt-0.5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
                 </a>
-                <span className="text-[#BC1C19] text-xs select-none">•</span>
+
+                {/* Red Book Icon for 'Carta en salón' PDF next to CARTA */}
+                {link.label === "CARTA" && (
+                  <div className="relative group/pdf inline-flex items-center">
+                    <a
+                      href="/carta-lynch.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Carta en salón PDF"
+                      className="p-1 text-[#BC1C19] hover:scale-125 active:scale-95 transition-all duration-200 cursor-pointer flex items-center justify-center drop-shadow-[0_2px_6px_rgba(188,28,25,0.4)]"
+                    >
+                      <svg
+                        className="w-4 h-4 fill-none stroke-current"
+                        strokeWidth={2.2}
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </a>
+
+                    {/* Tooltip on Hover */}
+                    <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#2A282A] text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-lg opacity-0 group-hover/pdf:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Carta en salón
+                    </span>
+                  </div>
+                )}
+
+                <span className="text-[#BC1C19] text-xs select-none ml-2 lg:ml-4">•</span>
               </div>
             ))}
           </nav>
@@ -263,6 +285,22 @@ export default function Header({ heroActive = true }: HeaderProps) {
               </a>
             ))}
 
+            {/* Mobile Link for Carta en Salón PDF */}
+            <a
+              href="/carta-lynch.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] font-bold tracking-[0.16em] uppercase transition-colors py-2.5 flex items-center justify-between text-[#BC1C19] border-b border-[#BC1C19]/20"
+            >
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 fill-none stroke-current" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <span>CARTA EN SALÓN (PDF)</span>
+              </div>
+              <span className="text-[#BC1C19] text-xs font-bold">↗</span>
+            </a>
+
             {/* Mobile Social Links in Red */}
             <div className="flex items-center justify-center gap-6 pt-4 mt-2 border-t border-white/10">
               <a href="tel:978800039" aria-label="Llamar" className="text-[#BC1C19] p-2 hover:scale-110 transition-transform">
@@ -270,7 +308,7 @@ export default function Header({ heroActive = true }: HeaderProps) {
                   <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.02l-2.23 2.09z" />
                 </svg>
               </a>
-              <a href="https://www.instagram.com/lynchcafeperu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#BC1C19] p-2 hover:scale-110 transition-transform">
+              <a href="https://www.instagram.com/lynchcaferestaurante/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#BC1C19] p-2 hover:scale-110 transition-transform">
                 <svg className="w-5 h-5 fill-none stroke-current" strokeWidth={2} viewBox="0 0 24 24">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />

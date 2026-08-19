@@ -41,7 +41,7 @@ export default function CartaPromoDuoBanners({
               alt="Desayunos Lynch Café"
               fill
               sizes="180px"
-              className="object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform duration-500"
+              className="object-cover rounded-2xl drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform duration-500"
             />
           </div>
 
