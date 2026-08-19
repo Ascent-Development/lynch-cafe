@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-manrope), sans-serif;
+  --font-manrope: var(--font-manrope), sans-serif;
+  --color-lynch-red: #BC1C19;
+  --color-lynch-white: #FCFBFB;
+  --color-lynch-black: #2A282A;
+  --color-lynch-gray-light: #E0DFDF;
+  --color-lynch-coffee: #65584A;
+  --color-lynch-dark-brown: #2B2725;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: #000000;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #000000;
+  color: #FCFBFB;
+  font-family: var(--font-manrope), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Custom minimalist Lynch Café Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #181718;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BC1C19;
+  border-radius: 9999px;
+  border: 1.5px solid #181718;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9e1412;
+}
+
+/* Standard scrollbar for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #BC1C19 #181718;
+}
+
+
+.animate-intro-shape {
+  animation: fadeInScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-subtle-float {
+  animation: subtleFloat 2s ease-in-out infinite;
+}
+
+@keyframes cupFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-cup-float {
+  animation: cupFloat 4s ease-in-out infinite;
+}
+
