@@ -98,10 +98,12 @@ export default function Header({ heroActive = true }: HeaderProps) {
     }
   };
 
+  const isCarta = pathname === "/carta" || pathname?.startsWith("/carta");
+
   const navLeft = [
     { label: "HOME", href: "/", isRed: isHome },
     { label: "NOSOTROS", href: "/#nosotros", isRed: false },
-    { label: "CARTA", href: "/#carta", isRed: false, hasChevron: true },
+    { label: "CARTA", href: "/carta", isRed: isCarta, hasChevron: false },
   ];
 
   const navRight = [
@@ -112,7 +114,7 @@ export default function Header({ heroActive = true }: HeaderProps) {
   const allNavLinks = [
     { label: "HOME", href: "/" },
     { label: "NOSOTROS", href: "/#nosotros" },
-    { label: "CARTA", href: "/#carta" },
+    { label: "CARTA", href: "/carta" },
     { label: "RESERVAS", href: "/reservas" },
     { label: "CONTÁCTANOS", href: "/#contactanos" },
   ];

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HeroProps {
   onScrollToNext?: () => void;
@@ -140,20 +141,20 @@ export default function Hero({ onScrollToNext }: HeroProps) {
             }`}
           >
             {/* Primary CTA: VER LA CARTA (Rojo Lynch #BC1C19) */}
-            <a
-              href="#carta"
+            <Link
+              href="/carta"
               className="inline-flex items-center justify-center bg-[#BC1C19] text-[#FCFBFB] font-semibold text-[11px] sm:text-[13px] tracking-[0.14em] uppercase px-7 sm:px-8 py-3.5 sm:py-4 transition-all duration-200 hover:bg-[#a01614] hover:shadow-[0_4px_24px_rgba(188,28,25,0.4)] transform hover:-translate-y-0.5 active:translate-y-0"
             >
               VER LA CARTA
-            </a>
+            </Link>
 
             {/* Secondary CTA: RESERVAR (Blanco #FCFBFB Outline) */}
-            <a
-              href="#reservas"
+            <Link
+              href="/reservas"
               className="inline-flex items-center justify-center border border-[#FCFBFB]/80 bg-black/25 backdrop-blur-xs text-[#FCFBFB] font-semibold text-[11px] sm:text-[13px] tracking-[0.14em] uppercase px-7 sm:px-8 py-3.5 sm:py-4 transition-all duration-200 hover:bg-[#FCFBFB] hover:text-[#2A282A] hover:shadow-[0_4px_20px_rgba(252,251,251,0.25)] transform hover:-translate-y-0.5 active:translate-y-0"
             >
               RESERVAR
-            </a>
+            </Link>
           </div>
 
           {/* Secondary Subtitle Info: Manrope Regular / Medium (400/500) */}

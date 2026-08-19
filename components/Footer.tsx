@@ -28,7 +28,7 @@ export default function Footer() {
 
   const mainNavLinks = [
     { label: "Home", href: "/" },
-    { label: "SOBRE NOSOTROS", href: "#nosotros" },
+    { label: "Sobre nosotros", href: "#nosotros" },
     { label: "Métodos", href: "#metodos" },
     { label: "Reservas", href: "#reservas" },
     { label: "Contáctanos", href: "#contactanos" },
